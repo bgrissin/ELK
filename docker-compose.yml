@@ -1,0 +1,31 @@
+version: "2"
+
+services:
+  elasticsearch:
+    image: elasticsearch:latest
+    command: elasticsearch -Des.network.host=0.0.0.0
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - ucp-elasticsearch-data:/usr/share/elasticsearch/data
+  logstash:
+    image: logstash:latest
+#    command: logstash sh -c "logstash -e 'input { syslog { } } output { stdout { } elasticsearch { hosts => [ \"es\" ] } } filter { json { source => \"message\" } }'"
+    command: logstash -f /etc/logstash/conf.d/logstash.conf
+    volumes:
+      - ./logstash/config:/etc/logstash/conf.d
+    ports:
+      - "514:514"
+    links:
+      - elasticsearch
+  kibana:
+    build: kibana/ 
+    ports:
+      - "5601:5601"
+    links:
+      - elasticsearch
+
+volumes:
+  ucp-elasticsearch-data:
+    external: false
