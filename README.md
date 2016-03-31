@@ -32,34 +32,34 @@ We want to use official scanned images from hub that provides us the best protec
 
 1. The following docker-compose.yml file consumes three images - elastisearch, logstash, and kibana.  These are all official images that are pulled from the offical Docker hub repository.  These images are scanned which gives additional levels of assurance against known CVE's and vulnerabilities within the images.
 		
-```version: "2"
+version: "2"
 
-services:
-  elasticsearch:
-    image: elasticsearch:latest
-    command: elasticsearch -Des.network.host=0.0.0.0
-    ports:
-      - "9200:9200"
-      - "9300:9300"
-    volumes:
-      - ucp-elasticsearch-data:/usr/share/elasticsearch/data
-  logstash:
-    image: logstash:latest
-    command: logstash sh -c "logstash -e 'input { syslog { } } output { stdout { } elasticsearch { hosts => [ \"es\" ] } } filter { json { source => \"message\" } }'"
-    ports:
-      - "514:514"
-    links:
-      - elasticsearch
-  kibana:
-    build: kibana/
-    ports:
-      - "5601:5601"
-    links:
-      - elasticsearch
+	services:
+  	  elasticsearch:
+    	  image: elasticsearch:latest
+    	  command: elasticsearch -Des.network.host=0.0.0.0
+    	  ports:
+      	    - "9200:9200"
+      	    - "9300:9300"
+    	  volumes:
+      	    - ucp-elasticsearch-data:/usr/share/elasticsearch/data
+  	logstash:
+    	  image: logstash:latest
+    	  command: logstash sh -c "logstash -e 'input { syslog { } } output { stdout { } elasticsearch { hosts => [ \"es\" ] } } filter { json { source => \"message\" } }'"
+    	  ports:
+      	    - "514:514"
+    	  links:
+      	    - elasticsearch
+  	kibana:
+    	  build: kibana/
+    	  ports:
+      	    - "5601:5601"
+    	  links:
+      	    - elasticsearch
 
-volumes:
-  ucp-elasticsearch-data:
-    external: true```
+	volumes:
+  	  ucp-elasticsearch-data:
+    	    external: true
 
 
 2. Verify all three containers are running.
