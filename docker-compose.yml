@@ -9,6 +9,7 @@ services:
       - "9300:9300"
     volumes:
       - ucp-elasticsearch-data:/usr/share/elasticsearch/data
+#      - elasticsearch/config:/usr/share/elasticsearch/config
   logstash:
     image: logstash:latest
 #    command: logstash sh -c "logstash -e 'input { syslog { } } output { stdout { } elasticsearch { hosts => [ \"es\" ] } } filter { json { source => \"message\" } }'"
@@ -16,15 +17,19 @@ services:
     volumes:
       - ./logstash/config:/etc/logstash/conf.d
     ports:
-      - "514:514"
+      - "5000:5000"
     links:
       - elasticsearch
   kibana:
     build: kibana/ 
+    volumes:
+      - ./kibana/config:/opt/kibana/config
     ports:
       - "5601:5601"
     links:
       - elasticsearch
+    environment:
+      - ELASTICSEARCH_URL=http://192.168.64.3:9200
 
 volumes:
   ucp-elasticsearch-data:
