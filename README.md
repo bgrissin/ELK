@@ -44,14 +44,14 @@ We want to use official scanned images from hub that provides us the best protec
       	    - "9300:9300"
     	  volumes:
       	    - ucp-elasticsearch-data:/usr/share/elasticsearch/data
-  	logstash:
-    	  image: logstash:latest
-    	  command: logstash sh -c "logstash -e 'input { syslog { } } output { stdout { } elasticsearch { hosts => [ \"es\" ] } } filter { json { source => \"message\" } }'"
-    	  ports:
-      	    - "514:514"
-    	  links:
-      	    - elasticsearch
-  	kibana:
+       	logstash:
+          image: logstash:latest
+          command: logstash sh -c "logstash -e 'input { syslog { } } output { stdout { } elasticsearch { hosts => [ \"es\" ] } } filter { json { source => \"message\" } }'"
+          ports:
+            - "514:514"
+          links:
+            - elasticsearch
+        kibana:
     	  build: kibana/
     	  ports:
       	    - "5601:5601"
