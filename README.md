@@ -36,10 +36,10 @@ We want to use official scanned images from hub that provides us the best protec
         version: "2"
         	
        	services:
-  	  elasticsearch:
-    	  image: elasticsearch:latest
-    	  command: elasticsearch -Des.network.host=0.0.0.0
-    	  ports:
+          elasticsearch:
+          image: elasticsearch:latest
+          command: elasticsearch -Des.network.host=0.0.0.0
+          ports:
       	    - "9200:9200"
       	    - "9300:9300"
     	  volumes:
