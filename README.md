@@ -58,7 +58,7 @@ We want to use official scanned images from hub that provides us the best protec
     	  links:
       	    - elasticsearch
 
-	volumes:
+        volumes:
   	  ucp-elasticsearch-data:
     	    external: true
 
