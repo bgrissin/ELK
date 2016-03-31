@@ -32,7 +32,7 @@ We want to use official scanned images from hub that provides us the best protec
 
 1. The following docker-compose.yml file consumes three images - elastisearch, logstash, and kibana.  These are all official images that are pulled from the offical Docker hub repository.  These images are scanned which gives additional levels of assurance against known CVE's and vulnerabilities within the images.
 		
-version: "2"
+```version: "2"
 
 services:
   elasticsearch:
@@ -59,7 +59,7 @@ services:
 
 volumes:
   ucp-elasticsearch-data:
-    external: true
+    external: true```
 
 
 2. Verify all three containers are running.
