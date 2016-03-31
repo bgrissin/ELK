@@ -32,10 +32,10 @@ We want to use official scanned images from hub that provides us the best protec
 
 1. The following docker-compose.yml file consumes three images - elastisearch, logstash, and kibana.  These are all official images that are pulled from the offical Docker hub repository.  These images are scanned which gives additional levels of assurance against known CVE's and vulnerabilities within the images.
 		
-	
-	version: "2"
-	
-	services:
+
+        version: "2"
+        	
+       	services:
   	  elasticsearch:
     	  image: elasticsearch:latest
     	  command: elasticsearch -Des.network.host=0.0.0.0
