@@ -29,7 +29,7 @@ services:
     links:
       - elasticsearch
     environment:
-      - ELASTICSEARCH_URL=http://192.168.64.3:9200
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
 
 volumes:
   ucp-elasticsearch-data:
